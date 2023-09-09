@@ -18,7 +18,7 @@ class BerkasSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        for ($i = 1; $i <= 500; $i++) {
+        for ($i = 1; $i <= 200; $i++) {
             $jenis = $faker->randomElement(['Kredit', 'Tabungan', 'Lunas', 'Daftar Hitam']);
             $lemari = ($jenis === 'Kredit' || 'Tabungan') ? chr(rand(65, 87)) : (($jenis === 'Daftar Hitam') ? chr(rand(88, 90)) : 'AA');
             $unit = $faker->randomElement(['0757', '0754', '0751', '3679', '3681', '7006']);
@@ -26,7 +26,7 @@ class BerkasSeeder extends Seeder
                 'no_rek' => $unit . $faker->numerify('##########'),
                 'nama' => $faker->name,
                 'cif' => Str::upper($faker->bothify('????###')),
-                'agunan' => ($jenis === 'Kredit' ? $faker->randomElement(['BPKB', 'Surat Tanah']) : '-'),
+                'agunan' => ($jenis === 'Kredit' ? $faker->randomElement(['BPKB', 'Surat Tanah']) : null),
                 'jenis' => $jenis,
                 'lokasi' => ($unit === '0757' ? 'Cicadas Barat' : ($unit === '0754' ? 'Cihapit' : ($unit === '0751' ? 'Citamiang' : ($unit === '3679' ? 'Kebonwaru' : ($unit === '3681' ? 'Sadang Serang' : ($unit === '7006' ? 'Cikutra Barat' : '')))))),
                 'ruang' => rand(1, 2),

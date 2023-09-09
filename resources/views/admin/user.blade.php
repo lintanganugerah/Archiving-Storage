@@ -16,7 +16,26 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            ...
+            Pada halaman ini anda melakukan manajemen user. Setiap hal yang anda lakukan akan tercatat pada log aktivitas.
+            Baca selengkapnya dibawah
+            <p id="judul-tabel-1" class="mb-3 mt-2 fw-bold">Tata Cara</p>
+            <ol class="list-group">
+              <li class="list-group-item">
+                <div class="fw-bold">Saya ingin menambah pengguna baru</div>
+                Tekan tombol "Tambah Pengguna baru" lalu isi detail pengguna
+              </li>
+              <li class="list-group-item">
+                <div class="fw-bold">Staff unit ingin melakukan reset password, bagaimana caranya?</div>
+                Cari nama akun staff tujuan lalu tekan tombol pulpen pada kolom aksi, scroll kebawah dan tekan "Reset password"
+              </li>
+              <li class="list-group-item">
+                <div class="fw-bold">Saya ingin menghapus pengguna</div>
+                Tekan tombol dengan logo bak sampah pada kolom aksi
+              </li>
+              <li class="list-group-item">
+                <div class="fw-bold">Saya ingin melakukan perubahan pengguna</div>
+                Tekan tombol puplen pada kolom aksi
+              </li>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -48,22 +67,13 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($users as $user)
+          @foreach ($users as $key => $user)
           <tr>
-            <td data-title="#">{{ $user->id }}</td>
+            <td data-title="#">{{ $key+1 }}</td>
             <td data-title="Nama">{{ $user->name }}</td>
             <td data-title="Email ">{{ $user->email }}</td>
             <td data-title="Jabatan">{{ $user->jabatan }}</td>
-            <td data-title="Role">
-              <select class="form-select role-select" name="role" aria-label="Floating label select example" data-user-id="{{ $user->id }}" onchange="updateFormAndSubmit(this);">
-                <option value="Admin" name="Admin" {{ $user->role == 'Admin' ? 'selected' : '' }}>Admin Unit</option>
-                <option value="User" name="User" {{ $user->role == 'User' ? 'selected' : '' }}>User</option>
-              </select>
-              <form id="update-form-{{ $user->id }}" action="{{ route('admin.updateUserRole', $user->id) }}" method="POST" style="display: none;">
-                @csrf
-                <input type="hidden" name="selected_role" id="selected-role">
-              </form>
-            </td>
+            <td data-title="Role">{{ $user->role }}</td>
             <td data-title="aksi">
               <a href="#" class="btn btn-outline-danger" onclick="event.preventDefault(); if (confirm('Apakah Anda yakin ingin menghapus user ini?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }">
                 <i class="fa-solid fa-trash-can"></i>

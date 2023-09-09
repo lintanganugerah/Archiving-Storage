@@ -22,9 +22,4 @@ class Agunan extends Model
     {
         return $this->belongsTo(Berkas::class, 'nama')->withDefault();
     }
-
-    public function agunan()
-    {
-        return $this->belongsTo(Berkas::class, 'agunan')->withDefault();
-    }
 }

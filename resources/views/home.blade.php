@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col">
             <div class="text-left mb-5">
-                <h1 class="fw-bold">Hai, {{ session('name') }}!</h1>
+                <h1 class="fw-bold">Hai, <a href="{{ route('user.viewprofile') }}" class="text-reset">{{ session('name') }}!</a></h1>
                 <h4 class="fw-normal">Yuk cek berkas yang masih kamu pinjam, jangan lupa dikembalikan ya!</h4>
             </div>
             @if (session('error'))
@@ -15,7 +15,7 @@
             </div>
             @endif
             @if (session('success'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
             </div>
             @endif
@@ -45,9 +45,9 @@
                     </thead>
                     <tbody>
                         @if($peminjamanAktif)
-                        @foreach($peminjamanAktif as $pa)
+                        @foreach($peminjamanAktif as $key => $pa)
                         <tr>
-                            <td data-title="#">{{ $pa->id }}</td>
+                            <td data-title="#">{{ $key+1 }}</td>
                             <td data-title="No Rek">{{ $pa->no_rek }}</td>
                             <td data-title="Nama">{{ $pa->nama }}</td>
                             <td data-title="CIF">{{ $pa->cif }}</td>
@@ -72,14 +72,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <textarea id="dataTextArea" class="form-control"></textarea>
+                            <!-- Form untuk mengisi catatan -->
+                            <form method="POST" id="catatan-{{ $pa->id }}" action="{{ route('user.catatanUpdate', $pa->id) }}">
+                                @csrf
+                                <div class="form-group">
+                                    <textarea class="form-control" name="content" rows="5">{{ $pa->catatan }}</textarea>
+                                </div>
+                            </form>
                         </div>
 
                         <!-- Footer modal -->
-                       
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="updateButton">Update</button>
+                            <button type="submit" onclick="document.getElementById('catatan-{{ $pa->id }}').submit();" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -102,10 +108,10 @@
                     </thead>
                     <tbody>
                         @if($pengembalian)
-                        @foreach($pengembalian as $pg)
+                        @foreach($pengembalian as $key => $pg)
                         <tr>
                             @if ($pg->status != 'dikonfirmasi')
-                            <td data-title="#">{{ $pg->id }}</td>
+                            <td data-title="#">{{ $key+1 }}</td>
                             <td data-title="No Rek">{{ $pg->no_rek }}</td>
                             <td data-title="Nama">{{ $pg->nama }}</td>
                             <td data-title="CIF">{{ $pg->cif }}</td>
@@ -146,10 +152,10 @@
                     </thead>
                     <tbody>
                         @if($peminjaman)
-                        @foreach($peminjaman as $p)
+                        @foreach($peminjaman as $key => $p)
                         <tr>
                             @if ($p->status == 'ditolak' || $p->status == 'menunggu')
-                            <td data-title="#">{{ $p->id }}</td>
+                            <td data-title="#">{{ $key+1 }}</td>
                             <td data-title="No Rek">{{ $p->no_rek }}</td>
                             <td data-title="Nama">{{ $p->nama }}</td>
                             <td data-title="CIF">{{ $p->cif }}</td>

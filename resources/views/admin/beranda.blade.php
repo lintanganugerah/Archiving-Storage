@@ -5,6 +5,7 @@
   <div class="col">
     <div class="text-left mb-5 mt-3">
       <h1 class="fw-medium text-dark">Beranda</h1>
+      <h5 class="text-dark">Anda login sebagai {{ session('unit') }} Admin <a href="{{ route('admin.viewProfile') }}" class="text-reset"><u>{{ session('name') }}!</u></a></h5>
     </div>
 
     <div class="row gx-5">
@@ -117,9 +118,9 @@
         </thead>
         <tbody>
           @if($peminjaman)
-          @foreach($peminjaman as $p)
+          @foreach($peminjaman as $key => $p)
           <tr>
-            <td data-title="#">{{ $p->id }}</td>
+            <td data-title="#">{{ $key + 1 }}</td>
             <td data-title="No Rek">{{ $p->no_rek }}</td>
             <td data-title="Nama">{{ $p->nama }}</td>
             <td data-title="CIF">{{ $p->cif }}</td>
@@ -162,9 +163,9 @@
         </thead>
         <tbody>
           @if ($pengembalian)
-          @foreach ($pengembalian as $pe)
+          @foreach ($pengembalian as $key => $pe)
           <tr>
-            <td data-title="#">{{ $pe->id }}</td>
+            <td data-title="#">{{ $key + 1 }}</td>
             <td data-title="No Rek">{{ $pe->no_rek }}</td>
             <td data-title="Nama">{{ $pe->nama }}</td>
             <td data-title="CIF">{{ $pe->cif }}</td>
@@ -185,9 +186,9 @@
           @endforeach
           @endif
           @if ($pengembalian2)
-          @foreach ($pengembalian2 as $pg2)
+          @foreach ($pengembalian2 as $key => $pg2)
           <tr>
-            <td data-title="#">{{ $pg2->id }}</td>
+            <td data-title="#">{{ $key + 1 }}</td>
             <td data-title="No Rek">{{ $pg2->no_rek }}</td>
             <td data-title="Nama">{{ $pg2->nama }}</td>
             <td data-title="CIF">{{ $pg2->cif }}</td>
@@ -228,16 +229,16 @@
           </tr>
         </thead>
         <tbody>
-          @if($peminjaman)
-          @foreach($peminjaman as $p)
+          @if($dipinjam)
+          @foreach($dipinjam as $key => $de)
           <tr>
-            <td data-title="#">{{ $p->id }}</td>
-            <td data-title="No Rek">{{ $p->no_rek }}</td>
-            <td data-title="Nama">{{ $p->nama }}</td>
-            <td data-title="CIF">{{ $p->cif }}</td>
-            <td data-title="Lokasi Berkas">{{ $p->lokasi }} </td>
-            <td data-title="Jenis">{{ $p->jenis }}</td>
-            <td data-title="User">{{ $p->user }}</td>
+            <td data-title="#">{{ $key + 1 }}</td>
+            <td data-title="No Rek">{{ $de->no_rek }}</td>
+            <td data-title="Nama">{{ $de->nama }}</td>
+            <td data-title="CIF">{{ $de->cif }}</td>
+            <td data-title="Lokasi Berkas">{{ $de->lokasi }} </td>
+            <td data-title="Jenis">{{ $de->jenis }}</td>
+            <td data-title="User">{{ $de->user }}</td>
           </tr>
           @endforeach
           @endif

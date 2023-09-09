@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="lemari" class="form-label fw-bold">Lemari</label>
-                <input type="text" class="form-control" id="lemari" name="lemari" value="{{$berkas->lemari}}" required>
+                <input type="text" class="form-control" id="lemari" name="lemari" value="{{$berkas->lemari}}" maxlength="2" required>
             </div>
             <div class="mb-3">
                 <label for="rak" class="form-label fw-bold">Rak</label>
@@ -49,32 +49,31 @@
             <hr class="mt-4 mb-4 border border-secondary border-2 opacity-50" />
             <div class="mb-3">
                 <label for="agunan" class="form-label fw-bold">Agunan</label>
-                <input type="text" class="form-control" id="agunan" name="agunan" value="{{$agunan->agunan}}" disabled>
+                <input type="text" class="form-control" id="agunan" name="agunan" value="{{$agunan->agunan}}" required>
             </div>
             <div class="mb-3">
                 <label for="lokasiAgunan" class="form-label fw-bold">Lokasi Agunan</label>
                 <div class="form-text">Ruang Agunan</div>
-                <input type="text" class="form-control" id="ruangAgunan" name="ruang_agunan" value="{{$agunan->ruang_agunan}}" disabled>
+                <input type="text" class="form-control" id="ruangAgunan" name="ruang_agunan" value="{{$agunan->ruang_agunan}}" required>
                 <div class="form-text">Lemari Agunan</div>
-                <input type="text" class="form-control" id="lemariAgunan" name="lemari_agunan" value="{{$agunan->lemari_agunan}}" disabled>
+                <input type="text" class="form-control" id="lemariAgunan" name="lemari_agunan" value="{{$agunan->lemari_agunan}}" maxlength="2" required>
                 <div class="form-text">Rak Agunan</div>
-                <input type="text" class="form-control" id="rakAgunan" name="rak_agunan" value="{{$agunan->rak_agunan}}" disabled>
+                <input type="text" class="form-control" id="rakAgunan" name="rak_agunan" value="{{$agunan->rak_agunan}}" required>
                 <div class="form-text">Baris Agunan</div>
-                <input type="text" class="form-control" id="barisAgunan" name="baris_agunan" value="{{$agunan->baris_agunan}}" disabled>
+                <input type="text" class="form-control" id="barisAgunan" name="baris_agunan" value="{{$agunan->baris_agunan}}" required>
             </div>
-            @else
+            @elseif($berkas->jenis != 'Kredit')
             <hr class="mt-4 mb-4 border border-secondary border-2 opacity-50" />
             <div class="mb-3">
                 <label for="agunan" class="form-label fw-bold">Agunan</label>
                 <input type="text" class="form-control" id="agunan" name="agunan" disabled>
-                <div id="namaNasabah" class="form-text">Bagian ini tidak dapat diubah secara langsung. Tekan tombol edit dibawah untuk melakukan perubahan</div>
             </div>
             <div class="mb-3">
                 <label for="lokasiAgunan" class="form-label fw-bold">Lokasi Agunan</label>
                 <div class="form-text">Ruang Agunan</div>
                 <input type="text" class="form-control" id="ruangAgunan" name="ruang_agunan" disabled>
                 <div class="form-text">Lemari Agunan</div>
-                <input type="text" class="form-control" id="lemariAgunan" name="lemari_agunan" disabled>
+                <input type="text" class="form-control" id="lemariAgunan" name="lemari_agunan" maxlength="2" disabled>
                 <div class="form-text">Rak Agunan</div>
                 <input type="text" class="form-control" id="rakAgunan" name="rak_agunan" disabled>
                 <div class="form-text">Baris Agunan</div>
@@ -83,11 +82,30 @@
             @endif
 
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a id="editButton" class="btn btn-outline">Edit Agunan</a>
         </form>
     </div>
 </div>
 <script>
+    function kreditChange(selectElement) {
+        var agunanInput = document.getElementById("agunan");
+        var ruangagunanInput = document.getElementById("ruangAgunan");
+        var lemariagunanInput = document.getElementById("lemariAgunan");
+        var rakagunanInput = document.getElementById("rakAgunan");
+        var barisagunanInput = document.getElementById("barisAgunan");
+        if (selectElement.value === "Kredit") {
+            agunanInput.disabled = false;
+            ruangagunanInput.disabled = false;
+            lemariagunanInput.disabled = false;
+            rakagunanInput.disabled = false;
+            barisagunanInput.disabled = false;
+        } else {
+            agunanInput.disabled = true;
+            ruangagunanInput.disabled = true;
+            lemariagunanInput.disabled = true;
+            rakagunanInput.disabled = true;
+            barisagunanInput.disabled = true;
+        }
+    }
     document.getElementById('rekening').addEventListener('input', function() {
         // Hapus huruf yang dimasukkan oleh pengguna
         this.value = this.value.replace(/[^0-9]/g, '');
@@ -104,64 +122,11 @@
         // Hapus huruf yang dimasukkan oleh pengguna
         this.value = this.value.replace(/[^0-9]/g, '');
     });
-    var isEditable = false;
-    var agunan = document.getElementById('agunan');
-    var ruangAgunanInput = document.getElementById('ruangAgunan');
-    var lemariAgunanInput = document.getElementById('lemariAgunan');
-    var rakAgunanInput = document.getElementById('rakAgunan');
-    var barisAgunanInput = document.getElementById('barisAgunan');
-    var originalAgunanValue = agunan.value;
-    var originalRuangValue = ruangAgunanInput.value;
-    var originalLemariValue = lemariAgunanInput.value;
-    var originalRakValue = rakAgunanInput.value;
-    var originalBarisValue = barisAgunanInput.value;
 
-    document.getElementById('editButton').addEventListener('click', function() {
-
-
-        if (isEditable) {
-            // Simpan perubahan jika tombol "Simpan" ditekan
-
-            agunan.setAttribute('disabled', true);
-            ruangAgunanInput.setAttribute('disabled', true);
-            lemariAgunanInput.setAttribute('disabled', true);
-            rakAgunanInput.setAttribute('disabled', true);
-            barisAgunanInput.setAttribute('disabled', true);
-
-            // Hapus isi dari inputan
-            agunan.value = originalAgunanValue;
-            ruangAgunanInput.value = originalRuangValue;
-            lemariAgunanInput.value = originalLemariValue;
-            rakAgunanInput.value = originalRakValue;
-            barisAgunanInput.value = originalBarisValue;
-
-            this.textContent = 'Edit';
-            isEditable = false;
-        } else {
-            // Ubah ke mode edit jika tombol "Edit" ditekan
-
-            agunan.removeAttribute('disabled');
-            ruangAgunanInput.removeAttribute('disabled');
-            lemariAgunanInput.removeAttribute('disabled');
-            rakAgunanInput.removeAttribute('disabled');
-            barisAgunanInput.removeAttribute('disabled');
-
-            agunan.required = true;
-            ruangAgunanInput.required = true;
-            lemariAgunanInput.required = true;
-            rakAgunanInput.required = true;
-            barisAgunanInput.required = true;
-
-            this.textContent = 'Batalkan Edit';
-            isEditable = true;
-        }
-
-    });
-
-    const jenisSelect = document.getElementById('jenisSelect');
+    
 
     // Add an event listener to the select element
-    jenisSelect.addEventListener('change', function() {
+    document.getElementById('jenisSelect').addEventListener('change', function() {
         const selectedValue = jenisSelect.value;
 
         // Get the required input elements below the select element
@@ -184,6 +149,31 @@
             rakAgunanInput.required = false;
             barisAgunanInput.required = false;
         }
+    });
+    
+    document.getElementById('lemari').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^A-Za-z]/g, '');
+    });
+
+    document.getElementById('ruangAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('lemariAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^A-Za-z]/g, '');
+    });
+
+    document.getElementById('rakAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('barisAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
 </script>
 @endsection

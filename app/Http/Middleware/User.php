@@ -23,7 +23,7 @@ class User
         if (Auth::user()) {
             return response()->view('404', ['error' => 'Opps, Kamu bukan seorang user', 'msg' => 'Silahkan login sebagai User']);
         } else {
-            return redirect()->route('viewLogin');
+            return redirect()->route('/');
         }
     }
 }

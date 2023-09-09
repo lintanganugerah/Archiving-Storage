@@ -79,7 +79,7 @@
                                 {{ $pa->lokasi }}
                             </td>
                             <td data-title="Jenis">{{ $pa->jenis }}</td>
-                            <td data-title="Catatan"><a href="#lihat-catatan-#" class="text-reset" id="lihat-catatan-#">Lihat catatan</a></td>
+                            <td data-title="Catatan"><a class="text-decoration-underline text-reset" data-bs-toggle="modal" data-bs-target="#catatan-modal-{{ $pa->id }}">Lihat catatan</a></td>
                             <td data-title="aksi">
                                 <a onclick="document.getElementById('konfirmasi-pengembalian-{{ $pa->cif }}').submit();" class="btn btn-outline" id="aksi-{{$pa->cif}}">Kembalikan</a>
                             </td>
@@ -90,6 +90,36 @@
                         @endforeach
                         @endif
                     </tbody>
+                    @if($peminjamanAktif)
+                    @foreach($peminjamanAktif as $pm)
+                    <div class="modal fade" id="catatan-modal-{{ $pm->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 fw-bold text-dark" id="exampleModalLabel">Catatan Berkas {{ $pm->nama }}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form untuk mengisi catatan -->
+                                    <form method="POST" id="catatan-{{ $pm->id }}" action="{{ route('user.catatanUpdate', $pm->id) }}">
+                                        @csrf
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="content" rows="5">{{ $pm->catatan }}</textarea>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Footer modal -->
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" onclick="document.getElementById('catatan-{{ $pm->id }}').submit();" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    @endif
                 </table>
             </div>
         </div>

@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string("name")->index();
             $table->string("email");
             $table->string("password");
-            $table->string("role");
+            $table->string("role")->index();
             $table->string("jabatan");
             $table->string("unit");
             $table->longText("token")->nullable();
+            $table->string("reset")->nullable();
             $table->timestamps();
         });
     }

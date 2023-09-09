@@ -9,39 +9,22 @@
             @csrf
             <div class="mb-3">
                 <label for="namaNasabah" class="form-label fw-bold">Nama Nasabah</label>
-                <input type="text" class="form-control" id="namaNasabah" aria-describedby="namaNasabah" name="nama"
-                 required>
+                <input type="text" class="form-control" id="namaNasabah" aria-describedby="namaNasabah" name="nama" required>
             </div>
             <div class="mb-3">
                 <label for="rekening" class="form-label fw-bold">No Rekening</label>
-                <input type="text" pattern="[0-9]+" class="form-control" id="rekening" name="no_rek" title="Hanya angka yang diperbolehkan" minlength="11" maxlength="14" required>
+                <input type="text" pattern="[0-9]*" class="form-control" id="rekening" name="no_rek" title="Hanya angka yang diperbolehkan" minlength="11" maxlength="14" required>
             </div>
             <div class="mb-3">
                 <label for="cif" class="form-label fw-bold">CIF</label>
-                <input type="text" class="form-control" id="cif" name="cif" minlength="7" maxlength="9"required>
+                <input type="text" class="form-control" id="cif" name="cif" minlength="5" maxlength="7" required>
             </div>
-            <div class="mb-3">
-                <label for="agunan" class="form-label fw-bold">Agunan</label>
-                <input type="text" class="form-control" id="agunan" name="agunan" required>
-            </div>
-            <div class="mb-3">
-                <label for="lokasiAgunan" class="form-label fw-bold">Lokasi Agunan</label>
-                <div id="namaNasabah" class="form-text mb-4">Hanya di isi jika jenis berkas Kredit</div>
-                <div class="form-text">Ruang Agunan</div>
-                <input type="text" class="form-control" id="ruangAgunan" name="ruangAgunan" required>
-                <div class="form-text">Lemari Agunan</div>
-                <input type="text" class="form-control" id="lemariAgunan" name="lemariAgunan" required>
-                <div class="form-text">Rak Agunan</div>
-                <input type="text" class="form-control" id="rakAgunan" name="rakAgunan" required>
-                <div class="form-text">Baris Agunan</div>
-                <input type="text" class="form-control" id="barisAgunan" name="barisAgunan" required>
-            </div>
-            <hr class="mt-4 mb-4 border border-secondary border-2 opacity-50" />
             <div class="mb-3">
                 <label for="jenis" class="form-label fw-bold">Jenis</label>
                 <select class="form-select" aria-label="Default select example" id="jenisSelect" name="jenis">
-                    <option value="Kredit" selected>Kredit</option>
+                    <option value="Tabungan">Tabungan</option>
                     <option value="Lunas">Lunas</option>
+                    <option value="Kredit">Kredit</option>
                     <option value="Daftar Hitam">Daftar Hitam</option>
                 </select>
             </div>
@@ -51,7 +34,7 @@
             </div>
             <div class="mb-3">
                 <label for="lemari" class="form-label fw-bold">Lemari</label>
-                <input type="text" class="form-control" id="lemari" name="lemari" required>
+                <input type="text" class="form-control" id="lemari" name="lemari" maxlength="2" required>
             </div>
             <div class="mb-3">
                 <label for="rak" class="form-label fw-bold">Rak</label>
@@ -61,6 +44,24 @@
                 <label for="baris" class="form-label fw-bold">Baris</label>
                 <input type="text" class="form-control" id="baris" name="baris" required>
             </div>
+            <hr class="mt-4 mb-4 border border-secondary border-2 opacity-50" />
+            <div class="mb-3">
+                <label for="agunan" class="form-label fw-bold">Agunan</label>
+                <input type="text" class="form-control" id="agunan" name="agunan" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="lokasiAgunan" class="form-label fw-bold">Lokasi Agunan</label>
+                <div id="namaNasabah" class="form-text mb-4">Hanya di isi jika jenis berkas Kredit</div>
+                <div class="form-text">Ruang Agunan</div>
+                <input type="text" class="form-control" id="ruangAgunan" name="ruang_agunan" disabled>
+                <div class="form-text">Lemari Agunan</div>
+                <input type="text" class="form-control" id="lemariAgunan" name="lemari_agunan" maxlength="2" disabled>
+                <div class="form-text">Rak Agunan</div>
+                <input type="text" class="form-control" id="rakAgunan" name="rak_agunan" disabled>
+                <div class="form-text">Baris Agunan</div>
+                <input type="text" class="form-control" id="barisAgunan" name="baris_agunan" disabled>
+            </div>
+
 
             <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -69,7 +70,7 @@
 </div>
 
 <script>
-const jenisSelect = document.getElementById('jenisSelect');
+    const jenisSelect = document.getElementById('jenisSelect');
 
     // Add an event listener to the select element
     jenisSelect.addEventListener('change', function() {
@@ -82,12 +83,17 @@ const jenisSelect = document.getElementById('jenisSelect');
         const barisAgunanInput = document.getElementById('barisAgunan');
 
         // Set the "required" attribute based on the selected value
-        if (selectedValue === '1') { // "Kredit" option
+        if (selectedValue === 'Kredit') { // "Kredit" option
             agunan.required = true;
             ruangAgunanInput.required = true;
             lemariAgunanInput.required = true;
             rakAgunanInput.required = true;
             barisAgunanInput.required = true;
+            agunan.disabled = false;
+            ruangAgunanInput.disabled = false;
+            lemariAgunanInput.disabled = false;
+            rakAgunanInput.disabled = false;
+            barisAgunanInput.disabled = false;
         } else {
             agunan.required = false;
             ruangAgunanInput.required = false;
@@ -101,5 +107,53 @@ const jenisSelect = document.getElementById('jenisSelect');
             barisAgunanInput.disabled = true;
         }
     });
+
+    // Menggunakan event listener untuk memvalidasi input saat pengguna mengetik
+    document.getElementById('rekening').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('ruang').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    
+    document.getElementById('lemari').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^A-Za-z]/g, '');
+    });
+
+    document.getElementById('rak').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('baris').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('ruangAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('lemariAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^A-Za-z]/g, '');
+    });
+
+    document.getElementById('rakAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('barisAgunan').addEventListener('input', function(e) {
+        // Menghilangkan karakter selain angka dari nilai input
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    
+    
 </script>
 @endsection

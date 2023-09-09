@@ -21,7 +21,7 @@
                 </li>
             </ul>
             <div id="kanan" class="navbar-nav d-flex align-items-center">
-                <div id="unit" class="text-white mx-3">Unit {{ session('lokasi') }}</div>
+                <div id="unit" class="text-white mx-3">Unit {{ session('unit') }}</div>
                 <a id="button-logout" class="btn btn-outline-light" style="border-color: #D4E9F7;" onclick="document.getElementById('logoutForm').submit();">Logout</a>
                 <form action="{{ route('logout') }}" method="POST" id="logoutForm">
                     @csrf

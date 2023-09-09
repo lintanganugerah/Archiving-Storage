@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('berkas', function (Blueprint $table) {
             $table->id();
-            $table->string('no_rek', 14)->index();
+            $table->string('no_rek')->index();
             $table->string('nama')->index();
             $table->string('cif', 7)->unique();
-            $table->string('agunan')->nullable()->index();
+            $table->string('agunan')->nullable();
             $table->string('jenis')->index();
             $table->string('lokasi')->index();
             $table->unsignedTinyInteger('ruang');

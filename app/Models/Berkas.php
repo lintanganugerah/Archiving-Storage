@@ -10,13 +10,9 @@ class Berkas extends Model
     use HasFactory;
 
     protected $fillable = [
-        'no_rek', 'nama', 'cif', 'agunan', 'jenis', 'Lokasi', 'ruang', 'lemari', 'rak', 'baris', 'status',
+        'no_rek', 'nama', 'cif', 'agunan', 'jenis', 'lokasi', 'ruang', 'lemari', 'rak', 'baris', 'status',
     ];
-
-    public function berkas()
-    {
-        return $this->hasOne(Agunan::class, 'agunan');
-    }
+    
     public function nama()
     {
         return $this->hasOne(Agunan::class, 'nama')->hasOne(Pinjam::class, 'nama')->hasOne(Pengembalians::class, 'nama');
@@ -50,6 +46,7 @@ class Berkas extends Model
     {
         return $this->hasOne(Pinjam::class, 'baris');
     }
+
 
     // ------------------------ //
 

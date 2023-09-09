@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             BerkasSeeder::class,
-            // Seeder lainnya jika ada
+            UnitSeeder::class
         ]);
     }
 }

@@ -72,9 +72,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($berkas as $bk)
+                    @foreach ($berkas as $key => $bk)
                     <tr>
-                        <td data-title="#">{{ $bk->id }}</td>
+                        <td data-title="#">{{ $key+1 }}</td>
                         <td data-title="No Rek">{{ $bk->no_rek }}</td>
                         <td data-title="Nama">{{ $bk->nama }}</td>
                         <td data-title="CIF">{{ $bk->cif }}</td>
@@ -85,7 +85,10 @@
                         <td data-title="Rak">{{ $bk->rak }}</td>
                         <td data-title="Baris">{{ $bk->baris }}</td>
                         <td data-title="status">{{ $bk->status }}</td>
-                        <td data-title="aksi"><a href="{{ route('admin.editberkas', $bk->id) }}" class="btn btn-outline" id="aksi-{{$bk->id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td data-title="aksi">
+                            <a href="{{ route('admin.detailberkas', $bk->id) }}" class="btn btn-outline" id="info-{{$bk->id}}"><i class="fa-solid fa-info"></i></a>
+                            <a href="{{ route('admin.editberkas', $bk->id) }}" class="btn btn-outline" id="aksi-{{$bk->id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

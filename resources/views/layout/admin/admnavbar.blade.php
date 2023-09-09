@@ -44,7 +44,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('user.view') }}">
+        <a class="nav-link" href="/admin/user">
             <i class="fa-solid fa-user"></i>
             <span>User</span></a>
     </li>
@@ -57,7 +57,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/log">
             <i class="fa-solid fa-clock-rotate-left"></i>
             <span>Log Aktivitas</span></a>
     </li>

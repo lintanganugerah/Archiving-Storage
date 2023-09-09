@@ -25,8 +25,6 @@ return new class extends Migration
 
             $table->foreign('cif')->references('cif')->on('berkas')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('nama')->references('nama')->on('berkas')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('agunan')->references('agunan')->on('berkas')->onUpdate('cascade')->onDelete('cascade');
-            
         });
     }
 

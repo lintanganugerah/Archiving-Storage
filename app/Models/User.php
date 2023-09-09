@@ -41,6 +41,11 @@ class User extends Authenticatable
 
     public function user()
     {
-        return $this->hasOne(Pinjam::class, 'user')->hasOne(Pengembalian::class, 'user');
+        return $this->hasOne(Pinjam::class, 'user')->hasOne(Pengembalian::class, 'user')->hasOne(Riwayat::class, 'user')->hasOne(Riwayat::class, 'role');
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Riwayat::class, 'role');
     }
 }

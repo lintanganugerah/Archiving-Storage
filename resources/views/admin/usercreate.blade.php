@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label fw-bold">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" minlength="8" required>
             </div>
             @if ($roles == "Admin Cabang")
             <div class="mb-3">

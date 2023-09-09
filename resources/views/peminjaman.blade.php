@@ -85,9 +85,9 @@
                     </thead>
                     <tbody>
                         @if($berkas)
-                        @foreach ($berkas as $bk)
+                        @foreach ($berkas as $key => $bk)
                         <tr>
-                            <td data-title="#">{{ $bk->id }}</td>
+                            <td data-title="#">{{ $key+1 }}</td>
                             <td data-title="No Rek">{{ $bk->no_rek }}</td>
                             <td data-title="Nama">{{ $bk->nama }}</td>
                             <td data-title="CIF">{{ $bk->cif }}</td>
